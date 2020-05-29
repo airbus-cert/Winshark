@@ -1,0 +1,22 @@
+<CPackWiXPatch>
+	<CPackWiXFragment Id="#PRODUCT">
+		<SetDirectory Id="INSTALL_ROOT" Value="[ProgramFiles64Folder]Wireshark" />
+		<DirectoryRef Id="INSTALL_ROOT">
+		  <Directory Id="plugins" Name="plugins">
+			<Directory Id="winshark" Name="winshark">
+			</Directory>
+		  </Directory>
+		</DirectoryRef>
+		
+		<Component Id="Clean" Guid="946e5348-7a9e-482f-b793-ff398813a8db" Directory="winshark" Feature="ProductFeature">
+			<RemoveFile Id="PurgePluginFolder" Name="*.*" On="uninstall" />
+		</Component>
+		
+		<CustomAction Id="GenerateDissector" ExeCommand="cmd /c Transluator.exe .\plugins\winshark" Directory="INSTALL_ROOT" Execute="deferred" Impersonate='no' Return="check"/>
+		<InstallExecuteSequence>
+			<Custom Action="GenerateDissector" Before="InstallFinalize">
+				NOT Installed
+			</Custom>
+		</InstallExecuteSequence>
+	</CPackWiXFragment>
+</CPackWiXPatch>

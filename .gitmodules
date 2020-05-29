@@ -1,0 +1,4 @@
+[submodule "libpcap"]
+	path = libpcap
+	url = https://github.com/airbus-cert/libpcap
+	branch = etw
