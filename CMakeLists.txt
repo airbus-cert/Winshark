@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.11)
 
 # Project
-project(Winshark LANGUAGES C CXX CSharp VERSION 1.0.0)
+project(Winshark LANGUAGES C CXX CSharp VERSION 1.0.1)
 
 # Config
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
