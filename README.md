@@ -13,15 +13,24 @@ We've added Tracelogging support to cover almost all log techniques on the Windo
 With Winshark and the power of Windows, we can now capture Network and Event Logs in the same tool. Windows exposes a lot of ETW providers, in particular one for network capture ;-)
 No more need for an external NDIS driver.
 
+<<<<<<< HEAD
 This is a huge improvement in terms of use:
 * Enable to mix all kind of events (system and network)
 * Enable to use Wireshark filtering on event log
 * Enable to track network and system logs by Process ID!!!
 * Enable to capture Windows log and network trace into an unique pcap file!!!
+=======
+This is a huge improvement in term of use :
+* Enable to mix all kind of event (system and network)
+* Enable to use wireshark filtering on event log
+* Enable to track network and system log by Process ID !!!
+* Enable to capture Windows log and network trace into an unique pcap file !!!
+* Capture NamedPipe through [NpEtw](https://github.com/kobykahane/NpEtw) file system filter driver
 
 If you want to:
 * [Capture Network Traffic Using Winshark](#Capture-Network-traffic)
 * [Filter on Process ID](#Filtering-on-process-id)
+* [Capture NamedPipe Traffic] (#Capturing-NamedPipe)
 
 ## Install
 
@@ -162,6 +171,37 @@ etw.header.ProcessId == 1234
 ```
 
 ![ETW packet capture](doc/images/winshark-process-id.PNG)
+
+
+## Capturing NamedPipe
+
+@kobykahane provide a [file system filter driver](https://docs.microsoft.com/en-us/windows-hardware/drivers/ifs/about-file-system-filter-drivers) that emit an ETW for every action perform on a NamedPipe.
+
+### Install
+
+* Pass driver signing check in test mode
+```
+bcdedit /set testsigning on
+```
+* Install [NpEtwSetup.msi](https://github.com/airbus-cert/Winshark/releases)
+* Reboot
+* Update `Winshark` dissector by double clicking `C:\Program Files\Wireshark\WinsharkUpdate.exe` with `Admin` rights
+
+### Capture
+
+* Open a `cmd.exe` in `Admin mode`
+* Start the driver
+```
+sc start NpEtw
+```
+* Create an ETW Session
+```
+logman start namedpipe -p NpEtw -ets -rt
+```
+* Start `Wireshark` and select the `namedpipe` session. Enjoy!
+
+![ETW namedpipe capture](doc/video/namedpipe.gif)
+
 
 ## SSTIC (Symposium sur la sécurité des technologies de l'information et des communications)
 

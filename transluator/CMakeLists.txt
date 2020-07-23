@@ -21,3 +21,4 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Microsoft.Diagnostics.Tra
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Microsoft.Diagnostics.Tracing.TraceEvent.2.0.36/lib/net45/Dia2Lib.dll" DESTINATION .)
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Microsoft.Diagnostics.Tracing.TraceEvent.2.0.36/lib/net45/OSExtensions.dll" DESTINATION .)
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/third_party/Microsoft.Diagnostics.Tracing.TraceEvent.2.0.36/lib/net45/TraceReloggerLib.dll" DESTINATION .)
+install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/scripts/WinsharkUpdate.bat" DESTINATION .)
