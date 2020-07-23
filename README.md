@@ -23,7 +23,7 @@ This is a huge improvement in terms of use:
 If you want to:
 * [Capture Network Traffic Using Winshark](#Capture-Network-traffic)
 * [Filter on Process ID](#Filtering-on-process-id)
-* [Capture NamedPipe Traffic] (#Capturing-NamedPipe)
+* [Capture NamedPipe Traffic](#Capturing-NamedPipe)
 
 ## Install
 
