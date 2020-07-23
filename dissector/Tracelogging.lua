@@ -80,9 +80,16 @@ function tracelogging.dissector(buffer, pinfo, tree)
 		if ext_type == 11 then 
 			local size = data(0, 2):le_uint()		
 			local tag = data(2, 1):le_uint()
+			local extended_tag = nil
+			local offset_name = 3
+			-- tag have an extended int format
+			if bit32.band(tag, 0x80) == 0x80 then
+				extended_tag = data(3, 1):le_uint()
+				offset_name = 4
+			end
 			-- name of the protocol
-			name = data(3):stringz():gsub(" ", "_")
-			local scheme_data = data(3 + name:len() + 1):tvb()
+			name = data(offset_name):stringz():gsub(" ", "_")
+			local scheme_data = data(offset_name + name:len() + 1):tvb()
 			local offset_scheme = 0
 			local index_tag = 1
 			
