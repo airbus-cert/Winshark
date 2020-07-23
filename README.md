@@ -13,18 +13,11 @@ We've added Tracelogging support to cover almost all log techniques on the Windo
 With Winshark and the power of Windows, we can now capture Network and Event Logs in the same tool. Windows exposes a lot of ETW providers, in particular one for network capture ;-)
 No more need for an external NDIS driver.
 
-<<<<<<< HEAD
 This is a huge improvement in terms of use:
 * Enable to mix all kind of events (system and network)
 * Enable to use Wireshark filtering on event log
 * Enable to track network and system logs by Process ID!!!
 * Enable to capture Windows log and network trace into an unique pcap file!!!
-=======
-This is a huge improvement in term of use :
-* Enable to mix all kind of event (system and network)
-* Enable to use wireshark filtering on event log
-* Enable to track network and system log by Process ID !!!
-* Enable to capture Windows log and network trace into an unique pcap file !!!
 * Capture NamedPipe through [NpEtw](https://github.com/kobykahane/NpEtw) file system filter driver
 
 If you want to:
