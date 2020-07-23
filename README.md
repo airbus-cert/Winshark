@@ -178,7 +178,7 @@ bcdedit /set testsigning on
 ```
 * Install [NpEtwSetup.msi](https://github.com/airbus-cert/Winshark/releases)
 * Reboot
-* Update `Winshark` dissector by double clicking `C:\Program Files\Wireshark\WinsharkUpdate.exe` with `Admin` rights
+* Update `Winshark` dissector by double clicking `C:\Program Files\Wireshark\WinsharkUpdate.bat` with `Admin` rights
 
 ### Capture
 
