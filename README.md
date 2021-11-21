@@ -135,8 +135,9 @@ Then `Winshark` generates `lua` dissectors for each manifest-based provider regi
 
 To capture network traffic using `Winshark`, you can use two simple ways:
 
-### pktmon (Packet Monitor)
+#### pktmon (Packet Monitor)
 pktmon is an in-box, cross-component network diagnostics tool for Windows. It can be used for packet capture, packet drop detection, packet filtering and counting (supported from RS5)
+
 https://docs.microsoft.com/en-us/windows-server/networking/technologies/pktmon/pktmon
 
 ```
@@ -158,7 +159,7 @@ That will start the packet capture:
 
 ![ETW packet capture](doc/images/winshark-capture-4.PNG)
 
-### netsh trace
+#### netsh trace
 
     ```
     netsh.exe trace start capture=yes report=no correlation=no
