@@ -135,38 +135,45 @@ Then `Winshark` generates `lua` dissectors for each manifest-based provider regi
 
 To capture network traffic using `Winshark`, you can use two simple ways:
 
-* pktmon (Packet Monitor)
-```
-pktmon start -c -m real-mode
-```
-you can run pktmon -h for more options (as admin)
+# pktmon (Packet Monitor)
+    ```
+    pktmon start -c -m real-mode
+    ```
+    you can run pktmon -h for more options (as admin)
 
-For instance:
-Add a filter for packets
-```
-pktmon filter add -t icmp
-pktmon filter add -t tcp -p 80
-```
+    For instance:
+    Add a filter for packets
+    ```
+    pktmon filter add -t icmp
+    pktmon filter add -t tcp -p 80
+    ```
 
-* netsh trace
+    Then launch `Wireshark` with administrator privileges and select `Pktmon` interface:
+     ![ETW interface selection](doc/images/winshark-capture-3.PNG)
 
-```
-netsh.exe trace start capture=yes report=no correlation=no
-```
+    That will start the packet capture:
 
-And then create an ETW session associated with the `Microsoft-Windows-NDIS-PacketCapture` provider:
+    ![ETW packet capture](doc/images/winshark-capture-4.PNG)
+    
+# netsh trace
 
-```
-logman start Winshark-PacketCapture -p "Microsoft-Windows-NDIS-PacketCapture" -rt -ets
-```
+    ```
+    netsh.exe trace start capture=yes report=no correlation=no
+    ```
 
-Then launch `Wireshark` with administrator privileges and select either `Pktmon` or `Winshark-PacketCapture` interface:
+    And then create an ETW session associated with the `Microsoft-Windows-NDIS-PacketCapture` provider:
 
-![ETW interface selection](doc/images/winshark-capture-1.PNG)
+    ```
+    logman start Winshark-PacketCapture -p "Microsoft-Windows-NDIS-PacketCapture" -rt -ets
+    ```
 
-That will start the packet capture:
+    Then launch `Wireshark` with administrator privileges and select `Winshark-PacketCapture` interface:
 
-![ETW packet capture](doc/images/winshark-capture-2.PNG)
+    ![ETW interface selection](doc/images/winshark-capture-1.PNG)
+
+    That will start the packet capture:
+
+    ![ETW packet capture](doc/images/winshark-capture-2.PNG)
 
 ## Filtering on process ID
 
