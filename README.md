@@ -133,7 +133,22 @@ Then `Winshark` generates `lua` dissectors for each manifest-based provider regi
 
 ## Capture network traffic
 
-To capture network traffic using `Winshark`, you have to simply activate network tracing through `netsh`:
+To capture network traffic using `Winshark`, you can use two simple ways:
+
+* pktmon (Packet Monitor)
+```
+pktmon start -c -m real-mode
+```
+you can run pktmon -h for more options (as admin)
+
+For instance:
+Add a filter for packets
+```
+pktmon filter add -t icmp
+pktmon filter add -t tcp -p 80
+```
+
+* netsh trace
 
 ```
 netsh.exe trace start capture=yes report=no correlation=no
@@ -145,7 +160,7 @@ And then create an ETW session associated with the `Microsoft-Windows-NDIS-Packe
 logman start Winshark-PacketCapture -p "Microsoft-Windows-NDIS-PacketCapture" -rt -ets
 ```
 
-Then launch `Wireshark` with administrator privileges and select the `Winshark-PacketCapture` interface:
+Then launch `Wireshark` with administrator privileges and select either `Pktmon` or `Winshark-PacketCapture` interface:
 
 ![ETW interface selection](doc/images/winshark-capture-1.PNG)
 
