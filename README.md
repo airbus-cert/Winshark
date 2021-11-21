@@ -161,23 +161,23 @@ That will start the packet capture:
 
 #### netsh trace
 
-    ```
-    netsh.exe trace start capture=yes report=no correlation=no
-    ```
+```
+netsh.exe trace start capture=yes report=no correlation=no
+```
 
-    And then create an ETW session associated with the `Microsoft-Windows-NDIS-PacketCapture` provider:
+And then create an ETW session associated with the `Microsoft-Windows-NDIS-PacketCapture` provider:
 
-    ```
-    logman start Winshark-PacketCapture -p "Microsoft-Windows-NDIS-PacketCapture" -rt -ets
-    ```
+```
+logman start Winshark-PacketCapture -p "Microsoft-Windows-NDIS-PacketCapture" -rt -ets
+```
 
-    Then launch `Wireshark` with administrator privileges and select `Winshark-PacketCapture` interface:
+Then launch `Wireshark` with administrator privileges and select `Winshark-PacketCapture` interface:
 
-    ![ETW interface selection](doc/images/winshark-capture-1.PNG)
+![ETW interface selection](doc/images/winshark-capture-1.PNG)
 
-    That will start the packet capture:
+That will start the packet capture:
 
-    ![ETW packet capture](doc/images/winshark-capture-2.PNG)
+![ETW packet capture](doc/images/winshark-capture-2.PNG)
 
 ## Filtering on process ID
 
