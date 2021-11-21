@@ -138,7 +138,7 @@ To capture network traffic using `Winshark`, you can use two simple ways:
 #### pktmon (Packet Monitor)
 pktmon is an in-box, cross-component network diagnostics tool for Windows. It can be used for packet capture, packet drop detection, packet filtering and counting (supported from RS5)
 
-https://docs.microsoft.com/en-us/windows-server/networking/technologies/pktmon/pktmon
+(https://docs.microsoft.com/en-us/windows-server/networking/technologies/pktmon/pktmon)
 
 ```
 pktmon start -c -m real-mode
