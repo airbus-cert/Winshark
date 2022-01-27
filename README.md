@@ -36,7 +36,7 @@ To do that you have to open `Preferences` tab under the `Edit` panel. Select `DL
 
 ![DLT_USER configuration](doc/images/winshark-config-1.PNG)
 
-And set `etw` for `DLT = 147` :
+And set `winshark` for `DLT = 147` :
 
 ![DLT 147 set to ETW protocol](doc/images/winshark-config-2.PNG)
 
