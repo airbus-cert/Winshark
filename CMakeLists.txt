@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.11)
 
 # Project
-project(Winshark LANGUAGES C CXX CSharp VERSION 1.0.1)
+project(Winshark LANGUAGES C CXX CSharp VERSION 1.1.0)
 
 # Config
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -52,5 +52,4 @@ message(STATUS "Project version              : ${PROJECT_VERSION}")
 set(CPACK_GENERATOR "WIX")
 set(CPACK_WIX_UPGRADE_GUID "c64ed0aa-c54a-4590-93fb-72e152edefb7")
 set(CPACK_WIX_UNINSTALL "1")
-set(CPACK_WIX_PATCH_FILE "${CMAKE_CURRENT_SOURCE_DIR}/install/patch.xml")
 include(CPack)
