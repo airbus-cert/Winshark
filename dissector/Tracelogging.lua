@@ -6,7 +6,7 @@
 local tracelogging = Proto("Tracelogging", "Tracelogging")
 
 -- field use by Tracelogging to extract scheme
-local extended_data_field = Field.new("etw.ExtendedData")
+local extended_data_field = Field.new("winshark.ExtendedData")
 
 local tl_dissector_table = DissectorTable.new("Tracelogging", "Tracelogging", ftypes.STRING)
 
@@ -145,5 +145,5 @@ function tracelogging.dissector(buffer, pinfo, tree)
 	tl_dissector_table:try(name, buffer, pinfo, tree)
 end
 
-local etw_dissector_table = DissectorTable.get("etw")
-etw_dissector_table:add("Tracelogging", tracelogging)
+local winshark_dissector_table = DissectorTable.get("winshark")
+winshark_dissector_table:add("Tracelogging", tracelogging)

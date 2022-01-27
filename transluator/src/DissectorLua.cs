@@ -13,8 +13,8 @@ namespace Transluator
     {
         public const string PROVIDER = @"
 local proto = Proto(""{0}"", ""{0}"")
-local event_id = Field.new(""etw.header.EventDescriptor.Id"")
-local event_version = Field.new(""etw.header.EventDescriptor.Version"")
+local event_id = Field.new(""winshark.header.EventDescriptor.Id"")
+local event_version = Field.new(""winshark.header.EventDescriptor.Version"")
 local dissector_table = DissectorTable.new(""{0}"", ""{0} {1}"", ftypes.STRING)
 local protocols = {{}}
 local current_protocol = nil
@@ -25,8 +25,8 @@ function proto.dissector(buffer, pinfo, tree)
     local version = event_version()
 	dissector_table:try(tostring(id) .. ""."" .. tostring(version) , buffer, pinfo, tree)
 end
-local etw_dissector_table = DissectorTable.get(""etw"")
-etw_dissector_table:add(""{1}"", proto)
+local winshark_dissector_table = DissectorTable.get(""winshark"")
+winshark_dissector_table:add(""{1}"", proto)
 ";
         public const string EVENT_HEADER = @"current_protocol = Proto(""{0}.{1}.{2}"", ""{0} EventId({1}) Version({2})"")";
         public const string EVENT_FIELD_NAME = @"{0}_{1}";

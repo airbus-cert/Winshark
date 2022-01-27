@@ -1,7 +1,7 @@
 
 local proto = Proto("Microsoft-Windows-NDIS-PacketCapture", "Microsoft-Windows-NDIS-PacketCapture")
-local event_id = Field.new("etw.header.EventDescriptor.Id")
-local event_version = Field.new("etw.header.EventDescriptor.Version")
+local event_id = Field.new("winshark.header.EventDescriptor.Id")
+local event_version = Field.new("winshark.header.EventDescriptor.Version")
 local dissector_table = DissectorTable.new("Microsoft-Windows-NDIS-PacketCapture", "Microsoft-Windows-NDIS-PacketCapture 2ed6006e-4729-4609-b423-3ee7bcd678ef", ftypes.STRING)
 function proto.dissector(buffer, pinfo, tree)
 	length = buffer:len()
@@ -10,8 +10,8 @@ function proto.dissector(buffer, pinfo, tree)
     local version = event_version()
 	dissector_table:try(tostring(id) .. "." .. tostring(version) , buffer, pinfo, tree)
 end
-local etw_dissector_table = DissectorTable.get("etw")
-etw_dissector_table:add("2ed6006e-4729-4609-b423-3ee7bcd678ef", proto)
+local winshark_dissector_table = DissectorTable.get("winshark")
+winshark_dissector_table:add("2ed6006e-4729-4609-b423-3ee7bcd678ef", proto)
 
 event_proto_1001_0 = Proto("Microsoft-Windows-NDIS-PacketCapture.1001.0", "Microsoft-Windows-NDIS-PacketCapture EventId(1001) Version(0)")
 

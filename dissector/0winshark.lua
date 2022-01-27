@@ -2,34 +2,34 @@
 -- This dissector will parse all meta infos for ETW packet captured
 -- throw the ETW backend for lib pcap
 
-etw_proto = Proto("ETW","Event Trace for Windows");
+winshark_proto = Proto("winshark","Event Trace for Windows");
 
-local header_size = ProtoField.uint16("etw.header.Size", "Size", base.DEC);
-local header_type = ProtoField.uint16("etw.header.HeaderType", "HeaderType", base.DEC);
-local header_flags = ProtoField.uint16("etw.header.Flags", "Flags", base.DEC);
-local header_eventproperty = ProtoField.uint16("etw.header.EventProperty", "EventProperty", base.DEC);
-local header_threadid = ProtoField.uint32("etw.header.ThreadId", "ThreadId", base.DEC);
-local header_processid = ProtoField.uint32("etw.header.ProcessId", "ProcessId", base.DEC);
-local header_timestamp = ProtoField.uint64("etw.header.TimeStamp", "TimeStamp", base.DEC);
-local header_providerid = ProtoField.guid("etw.header.ProviderId", "ProviderId", base.DEC);
-local header_processtime = ProtoField.uint64("etw.header.ProcessorTime", "ProcessorTime", base.DEC);
-local header_activityid = ProtoField.guid("etw.header.ActivityId", "ActivityId", base.DEC);
+local header_size = ProtoField.uint16("winshark.header.Size", "Size", base.DEC);
+local header_type = ProtoField.uint16("winshark.header.HeaderType", "HeaderType", base.DEC);
+local header_flags = ProtoField.uint16("winshark.header.Flags", "Flags", base.DEC);
+local header_eventproperty = ProtoField.uint16("winshark.header.EventProperty", "EventProperty", base.DEC);
+local header_threadid = ProtoField.uint32("winshark.header.ThreadId", "ThreadId", base.DEC);
+local header_processid = ProtoField.uint32("winshark.header.ProcessId", "ProcessId", base.DEC);
+local header_timestamp = ProtoField.uint64("winshark.header.TimeStamp", "TimeStamp", base.DEC);
+local header_providerid = ProtoField.guid("winshark.header.ProviderId", "ProviderId", base.DEC);
+local header_processtime = ProtoField.uint64("winshark.header.ProcessorTime", "ProcessorTime", base.DEC);
+local header_activityid = ProtoField.guid("winshark.header.ActivityId", "ActivityId", base.DEC);
 
-local header_eventdescriptor_id = ProtoField.uint16("etw.header.EventDescriptor.Id", "Id", base.DEC);
-local header_eventdescriptor_version = ProtoField.uint8("etw.header.EventDescriptor.Version", "Version", base.DEC);
-local header_eventdescriptor_channel = ProtoField.uint8("etw.header.EventDescriptor.Channel", "Channel", base.DEC);
-local header_eventdescriptor_level = ProtoField.uint8("etw.header.EventDescriptor.Level", "Level", base.DEC);
-local header_eventdescriptor_opcode = ProtoField.uint8("etw.header.EventDescriptor.Opcode", "Opcode", base.DEC);
-local header_eventdescriptor_task = ProtoField.uint16("etw.header.EventDescriptor.Task", "Task", base.DEC);
-local header_eventdescriptor_keyword = ProtoField.uint64("etw.header.EventDescriptor.Keyword", "Keyword", base.HEX);
+local header_eventdescriptor_id = ProtoField.uint16("winshark.header.EventDescriptor.Id", "Id", base.DEC);
+local header_eventdescriptor_version = ProtoField.uint8("winshark.header.EventDescriptor.Version", "Version", base.DEC);
+local header_eventdescriptor_channel = ProtoField.uint8("winshark.header.EventDescriptor.Channel", "Channel", base.DEC);
+local header_eventdescriptor_level = ProtoField.uint8("winshark.header.EventDescriptor.Level", "Level", base.DEC);
+local header_eventdescriptor_opcode = ProtoField.uint8("winshark.header.EventDescriptor.Opcode", "Opcode", base.DEC);
+local header_eventdescriptor_task = ProtoField.uint16("winshark.header.EventDescriptor.Task", "Task", base.DEC);
+local header_eventdescriptor_keyword = ProtoField.uint64("winshark.header.EventDescriptor.Keyword", "Keyword", base.HEX);
 
-local header_extendeddatalength = ProtoField.uint16("etw.header.ExtendedDataLength", "ExtendedDataLength", base.DEC);
-local header_extendeddata = ProtoField.bytes("etw.ExtendedData", "ExtendedData", base.NONE);
-local header_extendeddatatype = ProtoField.uint16("etw.ExtendedData.Type", "ExtType", base.DEC);
-local header_extendeddatasize = ProtoField.uint16("etw.ExtendedData.Size", "DataSize", base.DEC);
+local header_extendeddatalength = ProtoField.uint16("winshark.header.ExtendedDataLength", "ExtendedDataLength", base.DEC);
+local header_extendeddata = ProtoField.bytes("winshark.ExtendedData", "ExtendedData", base.NONE);
+local header_extendeddatatype = ProtoField.uint16("winshark.ExtendedData.Type", "ExtType", base.DEC);
+local header_extendeddatasize = ProtoField.uint16("winshark.ExtendedData.Size", "DataSize", base.DEC);
 
 
-etw_proto.fields = {
+winshark_proto.fields = {
 	header_size,
 	header_type,
 	header_flags,
@@ -54,16 +54,16 @@ etw_proto.fields = {
 }
 
 -- declate the personnal etw dissector table
-etw_dissector_table = DissectorTable.new("etw", "Event Tracing for Windows", ftypes.STRING)
+winshark_dissector_table = DissectorTable.new("winshark", "Event Tracing for Windows", ftypes.STRING)
 
-function etw_proto.dissector(buffer, pinfo, tree)
+function winshark_proto.dissector(buffer, pinfo, tree)
 	length = buffer:len();
 	if length == 0 then return end
 
-	pinfo.cols.protocol = etw_proto.name;
+	pinfo.cols.protocol = winshark_proto.name;
 	
-	local etw = tree:add(etw_proto, buffer());
-	local event_header = etw:add(buffer(0, 80), "EventHeader")
+	local winshark = tree:add(winshark_proto, buffer());
+	local event_header = winshark:add(buffer(0, 80), "EventHeader")
 	
 	event_header:add_le(header_size, buffer(0, 2));
 	event_header:add_le(header_type, buffer(2, 2));
@@ -98,7 +98,7 @@ function etw_proto.dissector(buffer, pinfo, tree)
 	);
 	
 	extended_data_length = buffer(80, 2):le_uint();
-	local extended_data = etw:add_le(header_extendeddata, buffer(82, extended_data_length));
+	local extended_data = winshark:add_le(header_extendeddata, buffer(82, extended_data_length));
 	
 	local offset = 0;
 	local index = 0;
@@ -123,8 +123,8 @@ function etw_proto.dissector(buffer, pinfo, tree)
 	end
 	
 	-- select corect dissector and pass UserData
-	etw:add(buffer(82 + extended_data_length, length - 82 - extended_data_length), "UserData")
-	etw_dissector_table:try(providerid, buffer(82 + extended_data_length, length - 82 - extended_data_length):tvb(), pinfo, tree);
+	winshark:add(buffer(82 + extended_data_length, length - 82 - extended_data_length), "UserData")
+	winshark_dissector_table:try(providerid, buffer(82 + extended_data_length, length - 82 - extended_data_length):tvb(), pinfo, tree);
 		
 end
 

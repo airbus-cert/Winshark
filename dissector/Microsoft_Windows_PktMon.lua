@@ -1,7 +1,7 @@
 
 local proto = Proto("Microsoft-Windows-PktMon", "Microsoft-Windows-PktMon")
-local event_id = Field.new("etw.header.EventDescriptor.Id")
-local event_version = Field.new("etw.header.EventDescriptor.Version")
+local event_id = Field.new("winshark.header.EventDescriptor.Id")
+local event_version = Field.new("winshark.header.EventDescriptor.Version")
 local dissector_table = DissectorTable.new("Microsoft-Windows-PktMon", "Microsoft-Windows-PktMon 4d4f80d9-c8bd-4d73-bb5b-19c90402c5ac", ftypes.STRING)
 local protocols = {}
 local current_protocol = nil
@@ -12,8 +12,8 @@ function proto.dissector(buffer, pinfo, tree)
     local version = event_version()
 	dissector_table:try(tostring(id) .. "." .. tostring(version) , buffer, pinfo, tree)
 end
-local etw_dissector_table = DissectorTable.get("etw")
-etw_dissector_table:add("4d4f80d9-c8bd-4d73-bb5b-19c90402c5ac", proto)
+local winshark_dissector_table = DissectorTable.get("winshark")
+winshark_dissector_table:add("4d4f80d9-c8bd-4d73-bb5b-19c90402c5ac", proto)
 
 current_protocol = Proto("Microsoft-Windows-PktMon.10.0", "Microsoft-Windows-PktMon EventId(10) Version(0)")
 
