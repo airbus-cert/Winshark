@@ -186,7 +186,7 @@ One of these is the `Process ID` of the emitter. This is a huge improvement from
 Simply fill the filter field of Wireshark with the following expression:
 
 ```
-etw.header.ProcessId == 1234
+winshark.header.ProcessId == 1234
 ```
 
 ![ETW packet capture](doc/images/winshark-process-id.PNG)
